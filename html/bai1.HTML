@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Layout</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        .wrapper {
+            height: 708px;
+            width: 1092px;
+            background-color: rgb(18, 208, 85);
+            box-sizing: border-box;
+            margin: auto;
+            display: grid;
+            grid-template-areas: "header header" "nav nav" "aside section" "footer footer";
+            border: 2px solid rgb(45, 93, 224);
+        }
+        
+        header,
+        footer,
+        nav,
+        aside,
+        section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: rgb(189, 171, 190);
+        }
+        
+        header {
+            height: 150px;
+            width: 1089px;
+            background-color: rgb(236, 34, 195);
+            grid-area: header;
+            border-bottom: 2px solid rgb(28, 191, 212);
+        }
+        
+        footer {
+            height: 150px;
+            width: 1089px;
+            background-color: rgb(101, 71, 20);
+            grid-area: footer;
+            border-top: 2px solid red;
+        }
+        
+        nav {
+            height: 50px;
+            width: 1089px;
+            background-color: blueviolet;
+            grid-area: nav;
+            border-bottom: 2px solid red;
+        }
+        
+        aside {
+            width: 300px;
+            height: 350px;
+            background-color: rgb(29, 22, 170);
+            grid-area: aside;
+            border-right: 2px solid rgb(72, 132, 193);
+        }
+        
+        section {
+            width: 787px;
+            height: 350px;
+            background-color: rgb(36, 197, 89);
+            grid-area: section;
+            border-right: 1px solid rgb(180, 100, 145);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <header>
+            <h1>Header</h1>
+        </header>
+        <nav>
+            <h1>Menu</h1>
+        </nav>
+        <aside>
+            <h1>Aside left</h1>
+        </aside>
+        <section>
+            <h1>Section</h1>
+        </section>
+        <footer>
+            <h1>Footer</h1>
+        </footer>
+    </div>
+</body>
+
+</html>
