@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0px;
+            margin: 0px auto;
+        }
+        .wrapper{
+            height: 600px;
+            width: 960px;
+            background-color: antiquewhite;
+            position: relative;
+        }
+        header{
+            height: 150px;
+            width: 960px;
+            background-color:#294e79 ;
+            position: relative;
+        }
+        header img{
+            top: 20px;
+            left: 10px;
+            position: absolute;
+        }
+        header h2{
+            top: 20px;
+            left: 120px;
+            position: absolute;
+            color: white;
+        }
+        header h4{
+            top: 50px;
+            left: 120px;
+            position: absolute;
+            color: white;
+        }
+        header #frm {
+            top: 10px;
+            right: 10px;
+            position: absolute;
+        }
+        header #frm #txtS{
+            border: 1px solid gray;
+            padding: 2px;
+        }
+        header #frm #btnS{
+            border: 1px solid gray;
+            padding: 3px;
+            border-radius: 50%;
+            background-color: cadetblue;
+        }
+        nav{
+            position: absolute;
+            bottom: 3px;
+            right: 20px;
+        }
+        .menu li{
+            display: inline-table;
+            background-color:#4d6683 ;
+            height: 50px;
+            line-height: 50px;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+        .menu li:hover {
+            background-color: #792951; 
+        }
+        .menu li a{
+            color: white;
+            font-weight: bolder;
+            text-decoration: none;
+
+        }
+        .content{
+            height: 450px;
+            width: 960px;
+            background-color: wheat;
+        }
+        footer{
+            background-color: #294e79;
+            position: relative;
+            height: 80px;
+            width: 100%;
+        }
+        footer p{
+          position: absolute;
+          left: 100px;
+          top: 30px;
+          color: white;
+          font-size: large;  
+        }
+        section {
+            width: 65%;
+            height: 100%;
+            float: left;
+            background-color: thistle;
+        }
+        aside {
+            width: 35%;
+            height: 100%;
+            float: left;
+            background-color: wheat;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <img src="/img/flower 2.jpg" alt="" srcset="" height="100" width="80">
+            <h2>
+                 FlowerBox 360
+            </h2>
+            <h4>
+                ...to get your daily close of luxury roses!
+            </h4>
+            <form action="" method="post" id="frm">
+                <input type="text" name="txtS" id="txtS" placeholder="Tìm kiếm..." required>
+                <button type="submit" id="btnS">GO</button>
+            </form>
+            <nav>
+                <ul class="menu">
+                    <li><a href="">Home</a></li>
+                    <li><a href="">Promotion</a></li>
+                    <li><a href="">Gift Baskets</a></li>
+                    <li><a href="">Flowers Services</a></li>
+                    <li><a href="">About</a></li>
+                </ul>
+            </nav>
+        </header>
+        <div class="content">
+            <section>
+                
+
+            </section>
+            <aside>
+
+            </aside>
+        </div>
+        <footer>
+           <p>Copyright @ 2024 Truong Dai Hoc Cong Nghiep TP. HCM</p>
+        </footer>
+    </div>
+</body>
+</html>
