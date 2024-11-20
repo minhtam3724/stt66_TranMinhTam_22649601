@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online doll and stuffed animal store</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <style></style>
+</head>
+<script>
+    // Khởi tạo giỏ hàng
+    let cart = [];
+    let total = 0;
+
+    // Thêm sản phẩm vào giỏ hàng
+    function addToCart(productName, productPrice) {
+        const existingProduct = cart.find(item => item.name === productName);
+        if (existingProduct) {
+            existingProduct.quantity++;
+        } else {
+            cart.push({
+                name: productName,
+                price: productPrice,
+                quantity: 1
+            });
+        }
+        updateCart();
+    }
+
+    // Cập nhật giỏ hàng
+    function updateCart() {
+        const cartItems = document.getElementById('cart-items');
+        const cartTotal = document.getElementById('cart-total');
+        cartItems.innerHTML = '';
+
+        if (cart.length === 0) {
+            cartItems.innerHTML = '<p>No items in the cart.</p>';
+        } else {
+            cart.forEach(item => {
+                const itemRow = document.createElement('div');
+                itemRow.style.marginBottom = '1rem';
+                itemRow.innerHTML = `
+                    <strong>${item.name}</strong> - ${item.price} VND x ${item.quantity} 
+                    <button style="margin-left:1rem;" onclick="removeFromCart('${item.name}')">Remove</button>
+                `;
+                cartItems.appendChild(itemRow);
+            });
+        }
+
+        // Tính tổng
+        total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+        cartTotal.innerText = total;
+    }
+
+    // Xóa sản phẩm khỏi giỏ hàng
+    function removeFromCart(productName) {
+        cart = cart.filter(item => item.name !== productName);
+        updateCart();
+    }
+
+    // Mở giỏ hàng
+    function openCart() {
+        document.getElementById('cart').style.display = 'block';
+        updateCart();
+    }
+
+    // Đóng giỏ hàng
+    function closeCart() {
+        document.getElementById('cart').style.display = 'none';
+    }
+</script>
+
+
+<script>
+    function openLoginForm() {
+        document.getElementById('login-form').style.display = 'block';
+    }
+
+    function closeLoginForm() {
+        document.getElementById('login-form').style.display = 'none';
+    }
+
+    function openCart() {
+        document.getElementById('cart').style.display = 'block';
+    }
+
+    function closeCart() {
+        document.getElementById('cart').style.display = 'none';
+    }
+</script>
+<script>
+    function openLoginForm() {
+        document.getElementById('login-form').style.display = 'block';
+        document.getElementById('register-form').style.display = 'none';
+    }
+
+    function closeLoginForm() {
+        document.getElementById('login-form').style.display = 'none';
+    }
+
+    function openRegisterForm() {
+        document.getElementById('register-form').style.display = 'block';
+        document.getElementById('login-form').style.display = 'none';
+    }
+
+    function closeRegisterForm() {
+        document.getElementById('register-form').style.display = 'none';
+    }
+</script>
+
+<body>
+    <!-- Login Form -->
+    <!-- Login Form -->
+    <div id="login-form" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:#fff; padding:2rem; border-radius:1rem; box-shadow:0 4px 10px rgba(0,0,0,.1); z-index:1000; width: 350px;">
+        <h2 style="text-align: center; color: var(--pink);">Login</h2>
+        <form action="#">
+            <input type="text" placeholder="Username" class="login-input">
+            <input type="password" placeholder="Password" class="login-input">
+            <button type="submit" class="btn" style="width: 100%; margin-top: 1rem;">Login</button>
+            <p style="text-align: center; margin-top: 1rem;">Don't have an account? <a href="#" onclick="openRegisterForm()" style="color: var(--pink);">Register</a></p>
+            <button type="button" class="btn" style="width: 100%; background: #999; margin-top: 1rem;" onclick="closeLoginForm()">Close</button>
+        </form>
+    </div>
+    <!-- Register Form -->
+    <div id="register-form" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:#fff; padding:2rem; border-radius:1rem; box-shadow:0 4px 10px rgba(0,0,0,.1); z-index:1000; width: 350px;">
+        <h2 style="text-align: center; color: var(--pink);">Register</h2>
+        <form action="#">
+            <input type="text" placeholder="Username" class="login-input">
+            <input type="email" placeholder="Email" class="login-input">
+            <input type="password" placeholder="Password" class="login-input">
+            <input type="password" placeholder="Confirm Password" class="login-input">
+            <button type="submit" class="btn" style="width: 100%; margin-top: 1rem;">Register</button>
+            <p style="text-align: center; margin-top: 1rem;">Already have an account? <a href="#" onclick="openLoginForm()" style="color: var(--pink);">Login</a></p>
+            <button type="button" class="btn" style="width: 100%; background: #999; margin-top: 1rem;" onclick="closeRegisterForm()">Close</button>
+        </form>
+    </div>
+
+    <!-- Cart -->
+    <div id="cart" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:#fff; padding:2rem; border-radius:1rem; box-shadow:0 4px 10px rgba(0,0,0,.1); z-index:1000; width: 80%; max-width: 700px;">
+        <h2 style="text-align: center; color: var(--pink); margin-bottom: 1rem;">Your Cart</h2>
+        <div id="cart-items">
+            <table style="width: 100%; border-collapse: collapse;">
+                <thead>
+                    <tr style="background: #f7f7f7; text-align: left;">
+                        <th style="padding: 0.5rem;">Product</th>
+                        <th style="padding: 0.5rem;">Price</th>
+                        <th style="padding: 0.5rem;">Quantity</th>
+                        <th style="padding: 0.5rem;">Total</th>
+                        <th style="padding: 0.5rem;">Action</th>
+                    </tr>
+                </thead>
+                <tbody id="cart-table-body">
+                    <tr>
+                        <td colspan="5" style="text-align: center; padding: 1rem;">No items in the cart.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div style="margin-top: 1rem; text-align: right;">
+            <strong>Total:</strong> <span id="cart-total">0</span> VND
+        </div>
+        <div style="margin-top: 1rem; text-align: center;">
+            <button class="btn" style="background: var(--pink); color: #fff;" onclick="checkout()">Checkout</button>
+            <button class="btn" style="background: #999; color: #fff;" onclick="closeCart()">Close</button>
+        </div>
+    </div>
+
+
+
+    <!--Header-->
+    <header>
+        <input type="checkbox" name="" id="toggler">
+        <label for="toggler" class="fas fa-bars"></label>
+        <a href="#" class="logo">HOME<span>.</span></a>
+        <nav class="navbar">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#product">Product</a>
+            <a href="#review">Review</a>
+            <a href="#contact">Contact</a>
+        </nav>
+        <div class="icons">
+            <a href="#" class="fas fa-heart"></a>
+            <a href="#" class="fas fa-shopping-cart" onclick="openCart()"></a>
+            <a href="#" class="fas fa-user" onclick="openLoginForm()"></a>
+        </div>
+    </header>
+    <!--Header-->
+
+
+    <!--Home starts-->
+    <section class="home" id="home">
+        <div class="content">
+            <h3>Gấu Bông Mềm Mại</h3>
+            <span>Mang đến sự ấm áp và niềm vui </span>
+            <p>Tại sao chọn gấu bông của chúng tôi?</p>
+            <a href="#" class="btn">Shop Now</a>
+        </div>
+    </section>
+
+    <!--Home ends-->
+
+    <section class="about" id="about">
+        <h1 class="heading"><span>about</span> Us</h1>
+        <div class="row">
+            <div class="video-container">
+                <video src="../img/1120.mp4" loop autoplay muted></video>
+                <h3>best teddys sellers</h3>
+            </div>
+            <div class="content">
+                <h3>why choose us?</h3>
+                <p>Chúng tôi mang đến cho bạn những chú gấu Teddy đáng yêu, chất lượng cao, và giá cả hợp lý. Sứ mệnh của chúng tôi là đem lại niềm vui và sự ấm áp cho mỗi khách hàng.</p>
+                <ul>
+                    <li>🎁 Sản phẩm chất lượng cao với thiết kế độc đáo.</li>
+                    <li>🌎 Giao hàng toàn quốc nhanh chóng và tiện lợi.</li>
+                    <li>💖 Chính sách đổi trả linh hoạt, đảm bảo sự hài lòng.</li>
+                </ul>
+                <a href="#" class="btn">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="icons-container">
+        <div class="icons">
+            <img src="../img/icon1.png " alt="">
+            <div class="info">
+                <h3>Free delivery</h3>
+                <span>on all orders</span>
+            </div>
+        </div>
+
+        <div class="icons">
+            <img src="../img/icon2.jpg " alt="">
+            <div class="info">
+                <h3> 1-days returns</h3>
+                <span>Moneyback gurantee</span>
+            </div>
+        </div>
+
+        <div class="icons">
+            <img src="../img/icon3.png " alt="">
+            <div class="info">
+                <h3>Offers & gits</h3>
+                <span>on all orders</span>
+            </div>
+        </div>
+
+        <div class="icons">
+            <img src="../img/icon4.png " alt="">
+            <div class="info">
+                <h3>Secure paymens</h3>
+                <span>protected by paypal</span>
+            </div>
+        </div>
+    </section>
+    <!--Products-->
+    <section class="products" id="product">
+        <h1 class="heading">latest <span>products</span></h1>
+        <div class="box-container">
+            <div class="box">
+                <span class="discount">-15%</span>
+                <div class="image">
+                    <img src="../img/gau1.jpg" alt="">
+                    <div class="icons">
+                        <a href="#" class="fas fa-heart"></a>
+                        <a href="#" class="cart-btn" onclick="addToCart('Gấu Bông Trắng Sữa', 199750)">add to cart</a>
+                        <a href="#" class="fas fa-share"></a>
+                    </div>
+                </div>
+                <div class="content">
+                    <h3>Gấu Bông Trắng Sữa</h3>
+                    <div class="price">199.750 <span>235.000</span></div>
+                </div>
+            </div>
+
+            <div class="box">
+                <span class="discount">-16%</span>
+                <div class="image">
+                    <img src="../img/sản phẩm/gau1.jpg" alt="">
+                    <div class="icons">
+                        <a href="#" class="fas fa-heart"></a>
+                        <a href="#" class="cart-btn" onclick="addToCart('Gia Đình Thỏ Xinh', 116760)">add to cart</a>
+                        <a href="#" class="fas fa-share"></a>
+                    </div>
+                </div>
+                <div class="content">
+                    <h3>Gia Đình Thỏ Xinh</h3>
+                    <div class="price">116.760 <span>139.000</span></div>
+                </div>
+            </div>
+
+            <div class="box">
+                <span class="discount">-15%</span>
+                <div class="image">
+                    <img src="../img/sản phẩm/gau2.jpg" alt="">
+                    <div class="icons">
+                        <a href="#" class="fas fa-heart"></a>
+                        <a href="#" class="cart-btn" onclick="addToCart('Khỉ Con Ngộ Nghĩnh', 143650)">add to cart</a>
+                        <a href="#" class="fas fa-share"></a>
+                    </div>
+                </div>
+                <div class="content">
+                    <h3>Khỉ Con Ngộ Nghĩnh</h3>
+                    <div class="price">143.650 <span>169.000 </span></div>
+                </div>
+            </div>
+
+            <div class="box">
+                <span class="discount">-11%</span>
+                <div class="image">
+                    <img src="../img/sản phẩm/gau3.jpg" alt="">
+                    <div class="icons">
+                        <a href="#" class="fas fa-heart"></a>
+                        <a href="#" class="cart-btn" onclick="addToCart('Khỉ Đỏ May Mắn', 177110)">add to cart</a>
+                        <a href="#" class="fas fa-share"></a>
+                    </div>
+                </div>
+                <div class="content">
+                    <h3>Khỉ Đỏ May Mắn</h3>
+                    <div class="price">177.110 <span>199.000</span></div>
+                </div>
+            </div>
+
+            <div class="box">
+                <span class="discount">-15%</span>
+                <div class="image">
+                    <img src="../img//sản phẩm/gau4.jpg" alt="">
+                    <div class="icons">
+                        <a href="#" class="fas fa-heart"></a>
+                        <a href="#" class="cart-btn" onclick="addToCart('Gấu Trúc Tinh Nghịch', 135150)">add to cart</a>
+                        <a href="#" class="fas fa-share"></a>
+                    </div>
+                </div>
+                <div class="content">
+                    <h3>Gấu Trúc Tinh Nghịch</h3>
+                    <div class="price">135.150 <span>159.000</span></div>
+                </div>
+            </div>
+
+            <div class="box">
+                <span class="discount">-17%</span>
+                <div class="image">
+                    <img src="../img/sản phẩm/gau5.jpg" alt="">
+                    <div class="icons">
+                        <a href="#" class="fas fa-heart"></a>
+                        <a href="#" class="cart-btn" onclick="addToCart('Gấu Tím Thủy Chung', 128650)">add to cart</a>
+                        <a href="#" class="fas fa-share"></a>
+                    </div>
+                </div>
+                <div class="content">
+                    <h3>Gấu Tím Thủy Chung</h3>
+                    <div class="price">128.650 <span>155.000</span></div>
+                </div>
+            </div>
+
+            <div class="box">
+                <span class="discount">-13%</span>
+                <div class="image">
+                    <img src="../img/sản phẩm/gau6.jpg" alt="">
+                    <div class="icons">
+                        <a href="#" class="fas fa-heart"></a>
+                        <a href="#" class="cart-btn" onclick="addToCart('Thỏ Bunny Ngọt Ngào', 204450)">add to cart</a>
+                        <a href="#" class="fas fa-share"></a>
+                    </div>
+                </div>
+                <div class="content">
+                    <h3>Thỏ Bunny Ngọt Ngào</h3>
+                    <div class="price">204.450 <span>235.000</span></div>
+                </div>
+            </div>
+
+            <div class="box">
+                <span class="discount">-15%</span>
+                <div class="image">
+                    <img src="../img/sản phẩm/gau7.jpg" alt="">
+                    <div class="icons">
+                        <a href="#" class="fas fa-heart"></a>
+                        <a href="#" class="cart-btn" onclick="addToCart('Gia Đình Gấu Nâu Đáng Yêu', 147050)">add to cart</a>
+                        <a href="#" class="fas fa-share"></a>
+                    </div>
+                </div>
+                <div class="content">
+                    <h3>Gia Đình Gấu Nâu Đáng Yêu</h3>
+                    <div class="price">147.050 <span>173.000</span></div>
+                </div>
+            </div>
+
+            <div class="box">
+                <span class="discount">-17%</span>
+                <div class="image">
+                    <img src="../img/sản phẩm/gau8.jpg" alt="">
+                    <div class="icons">
+                        <a href="#" class="fas fa-heart"></a>
+                        <a href="#" class="cart-btn" onclick="addToCart('Khủng Long Xanh Mắt To', 165170)">add to cart</a>
+                        <a href="#" class="fas fa-share"></a>
+                    </div>
+                </div>
+                <div class="content">
+                    <h3>Khủng Long Xanh Mắt To</h3>
+                    <div class="price">165.170 <span>199.000</span></div>
+                </div>
+            </div>
+
+            <div class="box">
+                <span class="discount">-16%</span>
+                <div class="image">
+                    <img src="../img/sản phẩm/gau9.jpg" alt="">
+                    <div class="icons">
+                        <a href="#" class="fas fa-heart"></a>
+                        <a href="#" class="cart-btn" onclick="addToCart('Cặp Mèo Xanh Dương Dễ Thương', 153720)">add to cart</a>
+                        <a href="#" class="fas fa-share"></a>
+                    </div>
+                </div>
+                <div class="content">
+                    <h3>Cặp Mèo Xanh Dương Dễ Thương</h3>
+                    <div class="price">153.720 <span>183.000</span></div>
+                </div>
+            </div>
+            <div class="box">
+                <span class="discount">-13%</span>
+                <div class="image">
+                    <img src="../img/sản phẩm/gau10.jpg" alt="">
+                    <div class="icons">
+                        <a href="#" class="fas fa-heart"></a>
+                        <a href="#" class="cart-btn" onclick="addToCart('Bộ Heo Hồng Siêu Cưng', 202710)">add to cart</a>
+                        <a href="#" class="fas fa-share"></a>
+                    </div>
+                </div>
+                <div class="content">
+                    <h3>Bộ Heo Hồng Siêu Cưng</h3>
+                    <div class="price">202.710 <span>233.000</span></div>
+                </div>
+            </div>
+
+            <div class="box">
+                <span class="discount">-15%</span>
+                <div class="image">
+                    <img src="../img/sản phẩm/gau11.jpg" alt="">
+                    <div class="icons">
+                        <a href="#" class="fas fa-heart"></a>
+                        <a href="#" class="cart-btn" onclick="addToCart('Mèo Đen Kuromi Cá Tính', 236980)">add to cart</a>
+                        <a href="#" class="fas fa-share"></a>
+                    </div>
+                </div>
+                <div class="content">
+                    <h3>Mèo Đen Kuromi Cá Tính</h3>
+                    <div class="price">236.980 <span>289.000</span></div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!--review section starts-->>
+    <section class="review" id="review">
+        <h1 class="heading">customer's <span>review</span></h1>
+        <div class="box-container">
+            <div class="box">
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p>Dịch vụ tuyệt vời và đội ngũ nhân viên rất nhiệt tình. Tôi cảm thấy rất hài lòng và sẽ quay lại lần sau!</p>
+                <div class="user">
+                    <img src="../img/review/kh1.jpg" alt="">
+                    <div class="user-info">
+                        <h3>charles Deco</h3>
+                        <Span>Happy Customers</Span>
+                    </div>
+                </div>
+                <span class="fas fa-quote-right"></span>
+            </div>
+
+            <div class="box">
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p>Sản phẩm không chỉ chất lượng mà còn được giao hàng rất nhanh. Cảm ơn vì đã mang đến trải nghiệm mua sắm tuyệt vời!</p>
+                <div class="user">
+                    <img src="../img/review/kh2.jpg" alt="">
+                    <div class="user-info">
+                        <h3>charles Deco</h3>
+                        <Span>Happy Customers</Span>
+                    </div>
+                </div>
+                <span class="fas fa-quote-right"></span>
+            </div>
+            <div class="box">
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p>Tôi rất ấn tượng với sự chuyên nghiệp và thân thiện của các bạn. Đây là nơi tôi tin tưởng để mua sắm!</p>
+                <div class="user">
+                    <img src="../img/review/kh3.jpg" alt="">
+                    <div class="user-info">
+                        <h3>charles Deco</h3>
+                        <Span>Happy Customers</Span>
+                    </div>
+                </div>
+                <span class="fas fa-quote-right"></span>
+            </div>
+
+            <div class="box">
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p>Không chỉ là sản phẩm tốt, mà cả cách chăm sóc khách hàng cũng rất tuyệt vời. Tôi chắc chắn sẽ giới thiệu cho bạn bè mình!</p>
+                <div class="user">
+                    <img src="../img/review/kh4.jpg" alt="">
+                    <div class="user-info">
+                        <h3>charles Deco</h3>
+                        <Span>Happy Customers</Span>
+                    </div>
+                </div>
+                <span class="fas fa-quote-right"></span>
+            </div>
+
+
+        </div>
+    </section>
+    <!--Contact-->
+    <section class="contact" id="contact">
+        <h1 class="heading"><span>contact</span> us</h1>
+        <div class="row">
+            <form action="">
+                <input type="text" class="box" placeholder="Name">
+                <input type="email" class="box" placeholder="Email">
+                <input type="number" class="box" placeholder="Number">
+                <textarea name="" class="box" placeholder="Message" id="" cols="30" rows="10"></textarea>
+                <input type="submit" value="send message" class="btn">
+            </form>
+            <div class="image">
+                <img src="../img/gau2.jpg" alt="">
+            </div>
+        </div>
+    </section>
+
+    <!--Footer-->
+    <section class="footer">
+        <div class="box-container">
+            <div class="box">
+                <h3>Quicky links</h3>
+                <a href="#">home</a>
+                <a href="#">about</a>
+                <a href="#">products</a>
+                <a href="#">review</a>
+                <a href="#">contact</a>
+            </div>
+
+            <div class="box">
+                <h3>Extra links</h3>
+                <a href="#">My accout</a>
+                <a href="#">Amy order</a>
+                <a href="#">My favorites</a>
+            </div>
+
+            <div class="box">
+                <h3>Locations links</h3>
+                <a href="#">India</a>
+                <a href="#">USA</a>
+                <a href="#">VietNam</a>
+                <a href="#">france</a>
+                <a href="#">Korea</a>
+            </div>
+
+            <div class="box">
+                <h3>Contact info</h3>
+                <a href="#">+368-636-752</a>
+                <a href="#">hotrogaubong@gmail.com</a>
+                <a href="#">VietNam, India - 500203</a>
+                <img src="../img" alt="">
+            </div>
+        </div>
+        <div class="credit">
+            &copy; Copyright by <span>@ MinhTam</span> All Right Reserved
+        </div>
+    </section>
+
+
+
+
+
+
+
+</body>
+
+</html>
